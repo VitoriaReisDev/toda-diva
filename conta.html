@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Minha conta — Toda Diva</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="auth-wrap">
+  <div class="auth-card" style="max-width:440px; text-align:left;">
+
+    <div style="text-align:center;">
+      <div class="logo">Toda diva</div>
+    </div>
+
+   <div style="text-align:center; margin: 22px 0;">
+  <div id="avatarCirculo" style="width:72px; height:72px; border-radius:50%; background:var(--color-bg-soft); display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-size:1.6rem; color:var(--color-primary); margin:0 auto 10px; overflow:hidden;"></div>
+  <h2 id="contaNome" style="margin:0; font-family:var(--font-display);"></h2>
+  <p id="contaEmail" style="margin:4px 0 0; color:var(--color-text-light); font-size:0.85rem;"></p>
+
+  <div style="margin-top:12px;">
+    <input type="file" id="fotoPerfilArquivo" accept="image/*" style="font-size:0.78rem;">
+    <span id="statusUploadFoto" style="font-size:0.75rem; color:var(--color-text-light); display:block; margin-top:4px;"></span>
+  </div>
+</div>
+
+    <div class="field">
+      <label for="editNome">Nome</label>
+      <input type="text" id="editNome">
+    </div>
+    <button class="btn btn-primary btn-block" onclick="salvarNome()">Salvar alterações</button>
+
+    <h3 style="font-family:var(--font-display); font-size:1rem; margin:28px 0 10px;">Meus pedidos</h3>
+    <div id="listaPedidos" style="font-size:0.85rem; color:var(--color-text-light);"></div>
+
+    <button class="btn btn-outline btn-block" style="margin-top:24px;" onclick="sair()">Sair da conta</button>
+  </div>
+</div>
+
+<script type="module" src="js/firebase-config.js"></script>
+<script type="module" src="js/conta.js"></script>
+</body>
+</html>

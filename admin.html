@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Painel Admin — Toda Diva</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div class="admin-shell">
+  <aside class="admin-sidebar">
+    <div class="logo">Toda diva</div>
+    <nav class="admin-nav">
+      <div class="admin-nav-item active" id="navEstoque" onclick="mostrarSecao('estoque')">📦 Estoque</div>
+      <div class="admin-nav-item" id="navPedidos" onclick="mostrarSecao('pedidos')">📌 Reservas</div>
+      <div class="admin-nav-item" onclick="window.location.href='index.html'">🌸 Ver loja</div>
+      <div class="admin-nav-item" onclick="window.location.href='login.html'">🚪 Sair</div>
+    </nav>
+  </aside>
+
+  <main class="admin-main">
+    <div id="secaoEstoque">
+      <div class="admin-header">
+        <div>
+          <h1>Estoque por lote</h1>
+          <span style="font-size:0.8rem; color:var(--color-text-light);">
+            Clique em − ou + pra dar baixa ou repor unidades
+          </span>
+        </div>
+        <button class="btn btn-primary" onclick="abrirModalProduto()">+ Novo produto</button>
+      </div>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Produto</th>
+            <th>Categoria</th>
+            <th>Preço</th>
+            <th>Lote atual</th>
+            <th>Situação</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody id="adminTableBody"></tbody>
+      </table>
+    </div>
+
+    <div id="secaoPedidos" style="display:none;">
+      <div class="admin-header">
+        <div>
+          <h1>Reservas Agendadas</h1>
+          <span style="font-size:0.8rem; color:var(--color-text-light);">
+            Produtos reservados pelos clientes no site
+          </span>
+        </div>
+      </div>
+
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Cliente</th>
+            <th>Contato (WhatsApp)</th>
+            <th>Itens Reservados</th>
+            <th>Total</th>
+            <th>Status</th>
+            <th>Data Reserva</th>
+            <th>Limite Retirada</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody id="pedidosTableBody"></tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<div class="drawer-overlay" id="modalOverlay" onclick="fecharModalProduto()"></div>
+<div class="product-modal" id="productModal">
+  <h3>Novo produto</h3>
+
+  <form onsubmit="salvarNovoProduto(event)">
+    <div class="field">
+      <label for="pNome">Nome do produto</label>
+      <input type="text" id="pNome" required>
+    </div>
+
+    <div class="field">
+      <label for="pCategoria">Categoria</label>
+      <select id="pCategoria" required>
+        <option value="maquiagem">Maquiagem</option>
+        <option value="fragrancias">Fragrâncias</option>
+        <option value="skincare">Skincare</option>
+        <option value="cabelo">Cabelo</option>
+        <option value="acessorios">Acessórios</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="pDescricao">Descrição (opcional)</label>
+      <input type="text" id="pDescricao" placeholder="Ex: hidratante leve, toque seco">
+    </div>
+
+    <div class="field">
+      <label for="pPreco">Preço (R$)</label>
+      <input type="number" id="pPreco" step="0.01" min="0" required>
+    </div>
+
+    <div class="field">
+      <label for="pImagemArquivo">Foto do produto (opcional)</label>
+      <input type="file" id="pImagemArquivo" accept="image/*">
+      <span id="statusUpload" style="font-size:0.75rem; color:var(--color-text-light);"></span>
+    </div>
+
+    <div class="field">
+      <label for="pLote">Quantidade no lote</label>
+      <input type="number" id="pLote" min="1" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block">Salvar produto</button>
+    <button type="button" class="btn btn-outline btn-block" style="margin-top:10px;" onclick="fecharModalProduto()">Cancelar</button>
+  </form>
+</div>
+
+<script type="module" src="js/admin.js"></script>
+</body>
+</html>
