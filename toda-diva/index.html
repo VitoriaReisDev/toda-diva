@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Toda Diva — Makeup e Acessórios</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="logo">Toda diva <span>Makeup & Acessórios</span></div>
+  <div class="header-actions">
+    <!-- Botão de engrenagem exclusivo para o admin -->
+    <a href="admin.html" class="icon-btn" title="Painel Admin" id="adminIcon" style="display: none;">⚙️</a>
+    <a href="login.html" class="icon-btn" title="Entrar" id="accountIcon">👤</a>
+    <button class="icon-btn" onclick="toggleDrawer(true)" title="Minha Reserva">
+      🛍️<span class="cart-count" id="cartCount">0</span>
+    </button>
+  </div>
+</header>
+
+<section class="hero">
+  <h1 class="hero-title">Toda diva</h1>
+  <p class="hero-sub">Makeup e acessórios</p>
+  <div class="hero-divider"></div>
+  <p class="hero-tagline">Realce sua beleza, expresse sua essência.</p>
+</section>
+
+<section class="highlights">
+  <div class="highlight">
+    <div class="highlight-icon">💎</div>
+    <h4>Qualidade</h4>
+  </div>
+  <div class="highlight">
+    <div class="highlight-icon">💄</div>
+    <h4>Beleza que realça</h4>
+  </div>
+  <div class="highlight">
+    <div class="highlight-icon">🛍️</div>
+    <h4>Produtos selecionados</h4>
+  </div>
+  <div class="highlight">
+    <div class="highlight-icon">👑</div>
+    <h4>Atendimento especial</h4>
+  </div>
+</section>
+
+<section class="catalog">
+  <h2 class="catalog-title">Nossos produtos</h2>
+
+  <div class="catalog-filters">
+    <button class="filter-chip active" onclick="filtrarCategoria('todos', this)">Todos</button>
+    <button class="filter-chip" onclick="filtrarCategoria('maquiagem', this)">Maquiagem</button>
+    <button class="filter-chip" onclick="filtrarCategoria('fragrancias', this)">Fragrâncias</button>
+    <button class="filter-chip" onclick="filtrarCategoria('skincare', this)">Skincare</button>
+    <button class="filter-chip" onclick="filtrarCategoria('cabelo', this)">Cabelo</button>
+    <button class="filter-chip" onclick="filtrarCategoria('acessorios', this)">Acessórios</button>
+  </div>
+
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<footer class="site-footer">
+  Toda Diva · Retirada na loja ou combine a entrega · Fale com a gente 💌
+</footer>
+
+<div class="drawer-overlay" id="drawerOverlay" onclick="toggleDrawer(false)"></div>
+<aside class="drawer" id="cartDrawer">
+  <h3>Sua Reserva</h3>
+  <div id="cartItems" style="flex:1; overflow-y:auto;"></div>
+
+  <div style="margin-top:16px; font-weight:600; display:flex; justify-content:space-between;">
+    <span>Total a pagar na loja</span>
+    <span id="cartTotal">R$ 0,00</span>
+  </div>
+
+  <div class="field" style="margin-top:15px;">
+    <label for="clienteNome">Seu Nome Completo</label>
+    <input type="text" id="clienteNome" placeholder="Digite seu nome completo" required>
+  </div>
+
+  <div class="field" style="margin-top:10px;">
+    <label for="clienteTelefone">Seu WhatsApp / Telefone</label>
+    <input type="tel" id="clienteTelefone" placeholder="(00) 90000-0000" required>
+  </div>
+
+  <div style="margin-top:12px; font-size:0.78rem; color:var(--color-text-light); background: #fff4f7; padding: 8px 12px; border-radius: 6px; text-align: center;">
+    ⏳ <strong>Prazo de Retirada:</strong> As reservas ficam guardadas por até <strong>24 horas</strong> após a confirmação.
+  </div>
+
+  <button class="btn btn-primary btn-block" style="margin-top:15px;" onclick="reservarProdutos()">Confirmar Reserva</button>
+  <button class="btn btn-outline btn-block" style="margin-top:10px;" onclick="toggleDrawer(false)">Continuar olhando</button>
+</aside>
+
+<a href="https://wa.me/5575987072743?text=Oi! Vim pelo site da Toda Diva e queria tirar uma dúvida sobre um produto/reserva 💌" target="_blank" class="whatsapp-float" title="Falar com a loja no WhatsApp">
+  💬
+</a>
+
+<script type="module" src="js/firebase-config.js"></script>
+<script type="module" src="js/session.js"></script>
+<script type="module" src="js/catalog.js"></script>
+</body>
+</html>
