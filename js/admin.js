@@ -23,14 +23,20 @@ onAuthStateChanged(auth, async (user) => {
 
 // ---------- Navegação entre seções ----------
 function mostrarSecao(secao) {
-  document.getElementById("secaoEstoque").style.display = secao === "estoque" ? "block" : "none";
-  document.getElementById("secaoPedidos").style.display = secao === "pedidos" ? "block" : "none";
-  document.getElementById("navEstoque").classList.toggle("active", secao === "estoque");
-  document.getElementById("navPedidos").classList.toggle("active", secao === "pedidos");
+  const secaoEstoque = document.getElementById("secaoEstoque");
+  const secaoPedidos = document.getElementById("secaoPedidos");
+  const navEstoque = document.getElementById("navEstoque");
+  const navPedidos = document.getElementById("navPedidos");
+
+  if (secaoEstoque) secaoEstoque.style.display = secao === "estoque" ? "block" : "none";
+  if (secaoPedidos) secaoPedidos.style.display = secao === "pedidos" ? "block" : "none";
+  if (navEstoque) navEstoque.classList.toggle("active", secao === "estoque");
+  if (navPedidos) navPedidos.classList.toggle("active", secao === "pedidos");
 }
 
 // ---------- Estoque ----------
 let produtosAdmin = [];
+let termoBusca = "";
 
 onSnapshot(collection(db, "produtos"), (snap) => {
   produtosAdmin = snap.docs.map(d => ({ id: d.id, ...d.data() }));
@@ -40,7 +46,18 @@ onSnapshot(collection(db, "produtos"), (snap) => {
 function renderTabelaAdmin() {
   const tbody = document.getElementById("adminTableBody");
   if (!tbody) return;
-  tbody.innerHTML = produtosAdmin.map(p => {
+
+  const listaFiltrada = produtosAdmin.filter(p =>
+    (p.nome || "").toLowerCase().includes(termoBusca.toLowerCase()) ||
+    (p.categoria || "").toLowerCase().includes(termoBusca.toLowerCase())
+  );
+
+  if (listaFiltrada.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:var(--color-text-light); padding:16px;">Nenhum produto encontrado.</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = listaFiltrada.map(p => {
     const badge = badgeEstoque(p);
     return `
       <tr>
@@ -243,6 +260,18 @@ async function marcarRetirado(id) {
   }
 }
 
+// ---------- Escutador da Barra de Busca ----------
+document.addEventListener("DOMContentLoaded", () => {
+  const inputBusca = document.getElementById("buscaProduto");
+  if (inputBusca) {
+    inputBusca.addEventListener("input", (e) => {
+      termoBusca = e.target.value;
+      renderTabelaAdmin();
+    });
+  }
+});
+
+// ---------- Exposição de funções globais para o HTML ----------
 window.mostrarSecao = mostrarSecao;
 window.alterarLote = alterarLote;
 window.reporLote = reporLote;

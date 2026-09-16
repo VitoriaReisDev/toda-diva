@@ -21,7 +21,7 @@
 
   <main class="admin-main">
     <div id="secaoEstoque">
-      <div class="admin-header">
+      <div class="admin-header" style="flex-wrap: wrap; gap: 16px; align-items: center; justify-content: space-between; margin-bottom: 20px;">
         <div>
           <h1>Estoque por lote</h1>
           <span style="font-size:0.8rem; color:var(--color-text-light);">
@@ -29,6 +29,11 @@
           </span>
         </div>
         <button class="btn btn-primary" onclick="abrirModalProduto()">+ Novo produto</button>
+      </div>
+
+      <div style="margin-bottom: 16px;">
+        <input type="text" id="buscaProduto" placeholder="🔍 Buscar produto por nome ou categoria..." 
+          style="width:100%; padding:10px 14px; border-radius:var(--radius-sm); border:1.5px solid var(--color-bg-soft); font-family:var(--font-body); font-size:0.9rem; background:var(--color-white); color:var(--color-text);">
       </div>
 
       <table class="admin-table">
